@@ -10,6 +10,6 @@ def check_input(user_input):
 
     for old, new in replacements.items():
         user_input = user_input.replace(old, new)
-        print(user_input)
+        # print(user_input)
 
     return user_input
