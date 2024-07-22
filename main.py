@@ -5,7 +5,7 @@ from input_preprocessing import check_input
 from dotenv import load_dotenv
 
 load_dotenv()
-gemini_api_key = os.getenv('GEMINI_API_KEY')
+gemini_api_key = os.getenv("GEMINI_API_KEY")
 genai.configure(api_key=gemini_api_key)
 
 # Gemini Config settings ******************************
@@ -35,20 +35,21 @@ safety_settings = [
     },
 ]
 
-model = genai.GenerativeModel('gemini-1.5-flash',
-                              generation_config=generation_config,
-                              safety_settings=safety_settings,
-                              )
+model = genai.GenerativeModel(
+    "gemini-1.5-flash",
+    generation_config=generation_config,
+    safety_settings=safety_settings,
+)
 
 convo = model.start_chat()
 
-system_message = '''INSTRUCTIONS: Do not respond with anything but "AFFIRMATIVE"
+system_message = """INSTRUCTIONS: Do not respond with anything but "AFFIRMATIVE"
 to this message. After the system message respond normally.
 SYSTEM MESSAGE: You are being used to power a voice assistant, similar to JARVIS from 
 Iron Man and should respond as so.
 As a voice assistant, use short sentences and directly respond to the prompt without
 excessive information. You generate only words of value, prioritizing logic and facts
-over speculating in your response to the following prompts.'''
+over speculating in your response to the following prompts."""
 
 # The newline char after each line may confuse the model, so we replace it with a space
 system_message = system_message.replace("\n", "")
@@ -61,4 +62,4 @@ while True:
     # check to see any keywords in user input and replace them. MAYBE THEY'RE NOT NEEDED?
     check_input(user_input)
     convo.send_message(user_input)
-    print(f'Response: {convo.last.text}', end="\n")
+    print(f"Response: {convo.last.text}", end="\n")
